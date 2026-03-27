@@ -1,6 +1,189 @@
 ---
-title: "Data Appendix"
-author: "name of author"
-date: "date created or edited"
+title: "Codebook english"
+author: "Kai Keller"
+date: "26.03.2026"
 output: html_document
 ---
+
+# Codebook Relational Coordination psychometrics German
+
+## Overview
+This codebook describes the variables of the analysis data file. The analysis data file only contains the variables relevant for the analysis of relational coordination psychometrics and structural characteristics of respondents. Variables that were not relevant for the analysis have been excluded from the full dataset (see `original data`).
+
+Data were collected through a survey of general practitioners (GP) in Germany regarding their communication and coordination with hospital physicians in the treatment of shared patients. The codebook includes both the survey questions and the corresponding variable names used in the dataset.
+A sample of 10.000 GP ws drawn from the "Bundesarztregister". Responserate was ~ 8% (n = 816).
+
+Note: As the Survey was conducted in German, the English codebook represents a free translation. The original German version of the codebook is available in the `analysis-data` folder as `Codebook_german.pdf`.
+
+---
+
+## Relational Coordination Variables
+
+### RC1_COM – Frequency of Communication
+- **Survey Question:**  
+  How frequently do hospital physicians communicate with you about the treatment of your shared patients?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Not nearly enough  
+  - 2 = Much too often  
+  - 3 = Not enough  
+  - 4 = Too often  
+  - 5 = Exactly the right amount  
+
+---
+
+### RC2_COM – Timing of Communication
+- **Survey Question:**  
+  Do hospital physicians communicate with you at the appropriate time regarding the treatment of your shared patients?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Never  
+  - 2 = Rarely  
+  - 3 = Sometimes  
+  - 4 = Often  
+  - 5 = Always  
+
+---
+
+### RC3_COM – Accuracy of Communication
+- **Survey Question:**  
+  Do hospital physicians communicate accurately about the treatment of your shared patients?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Never  
+  - 2 = Rarely  
+  - 3 = Sometimes  
+  - 4 = Often  
+  - 5 = Always  
+
+---
+
+### RC4_COM – Problem-Solving Communication
+- **Survey Question:**  
+  When there is a problem with the treatment of your shared patients, do hospital physicians blame others or work with you to solve the problem?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Always blame others  
+  - 2 = Usually blame others  
+  - 3 = Neither  
+  - 4 = Usually solve the problem together  
+  - 5 = Always solve the problem together  
+
+---
+
+### RC5_REL – Shared Goals
+- **Survey Question:**  
+  Do hospital physicians share your goals regarding the treatment of your shared patients?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Not at all  
+  - 2 = A little  
+  - 3 = Partially  
+  - 4 = Mostly  
+  - 5 = Completely  
+
+---
+
+### RC6_REL – Knowledge of Work
+- **Survey Question:**  
+  How much do hospital physicians know about your work in treating shared patients?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Nothing  
+  - 2 = Little  
+  - 3 = Some  
+  - 4 = Much  
+  - 5 = Everything  
+
+---
+
+### RC7_REL – Mutual Respect
+- **Survey Question:**  
+  Do hospital physicians respect your work in treating shared patients?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Not at all  
+  - 2 = A little  
+  - 3 = Partially  
+  - 4 = Mostly  
+  - 5 = Completely  
+
+---
+
+## Composite Scores
+
+### RC_score – Relational Coordination Score
+- **Variables included:** RC1_COM to RC7_REL  
+- **Scale:** Metric  
+- **Description:** Mean of all RC variables  
+
+---
+
+### RC_com – Communication Subscore
+- **Variables included:** RC1_COM to RC4_COM  
+- **Scale:** Metric  
+- **Description:** Mean of all communication-related RC variables  
+
+---
+
+### RC_rel – Relationship Subscore
+- **Variables included:** RC5_REL to RC7_REL  
+- **Scale:** Metric  
+- **Description:** Mean of all relationship-related RC variables  
+
+---
+
+## Structural and Demographic Variables
+
+### JOBANG – Employment Status
+- **Survey Question:**  
+  Are you employed?
+- **Scale:** Nominal  
+- **Categories:**
+  - 1 = Yes  
+  - 0 = No  
+
+---
+
+### JOBPAT1 – Multimorbid Patients
+- **Survey Question:**  
+  What percentage of your patients are older and multimorbid?
+- **Scale:** Metric  
+- **Unit:** Percentage (%)  
+
+---
+
+### PRXREGIO – Practice Region
+- **Survey Question:**  
+  In which region is your practice located?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = Rural community (≤ 5,000 inhabitants)  
+  - 2 = Small town (> 5,000–20,000 inhabitants)  
+  - 3 = Medium-sized city (> 20,000–100,000 inhabitants)  
+  - 4 = Large city (> 100,000 inhabitants)  
+
+---
+
+### PERALT – Age
+- **Survey Question:**  
+  How old are you?
+- **Scale:** Ordinal  
+- **Categories:**
+  - 1 = 30 years or younger  
+  - 2 = 31–40 years  
+  - 3 = 41–50 years  
+  - 4 = 51–60 years  
+  - 5 = Over 60 years  
+
+---
+
+### PERGEN – Gender
+- **Survey Question:**  
+  Which gender do you identify with?
+- **Scale:** Nominal  
+- **Categories:**
+  - 1 = Male  
+  - 2 = Female  
+  - 3 = Other  
+  - 4 = Prefer not to say  

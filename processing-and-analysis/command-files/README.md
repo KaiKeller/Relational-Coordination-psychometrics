@@ -2,7 +2,9 @@
 
 For simple implementations of the TIER Protocol, the "commands" (R code) will be interwoven with text in the `.Rmd` file in the main folder of your project. 
 
-However, occasionally it is necessary to split out supplementary work into additional files. For example, you may have a separate `.Rmd` file that completes a long and arduous data cleaning process, or you may have R scripts (with the `.R` extension) that contain specialized functions you wish to "source" into your final analysis. 
+However, occasionally it is necessary to split out supplementary work 
+into additional files. For example, you may have a separate `.Rmd` file that
+completes a long and arduous data cleaning process, or you may have R scripts (with the `.R` extension) that contain specialized functions you wish to "source" into your final analysis. 
 
 These additional files should be placed in the `command-files` directory. 
 
