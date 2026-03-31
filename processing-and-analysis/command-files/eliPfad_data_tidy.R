@@ -2,7 +2,7 @@
 # Processing script for tidying and transforming the raw data for analysis
 
 # Setup ####
-# R version:  4.4.1 (2024-06-14 ucrt) -- "Race for Your Life"versi
+# R version:  4.4.1 (2024-06-14 ucrt) -- "Race for Your Life"
 # R Studio Version: RStudio 2021.09.0+351 "Ghost Orchid" Release for Windows
 # Platform: x86_64-w64-mingw32/x64
 
@@ -10,6 +10,7 @@
 # To ensure reproducibility, we specify the package versions used in this analysis with renv. 
 # This allows us to recreate the same environment in the future, even if package updates have occurred.
 
+# Exact package versions for future replication
 renv::use(
   bit         = "bit@4.6.0",
   bit64       = "bit64@4.6.0-1",
@@ -46,7 +47,7 @@ renv::use(
   withr       = "withr@3.0.2"
 )
 
-
+## Load required packages
 library(cli)
 library(dplyr)
 library(generics)
@@ -66,24 +67,22 @@ library(vctrs)
 library(withr)
 
 
-## Set Working Directory ####
+## Set working directory ####
 
 setwd("./eliPfad-data-publications/original-data")
 
 
-## Import raw data files ####
-## Different data sets for the different recruitment strategies (e-mail, qr-code, postal letter)
+## 1. Import raw data ####
+## Different data sets originate from different recruitment strategies (e-mail, qr-code, paper-based survey)
 
-# E-Mail group
+# Email datasets
 rl_email_a <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/export_email_alt_20240813.sav",
                        user_na = TRUE)
 
 rl_email_n <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/export_email_neu_20240930.sav",
                        user_na = TRUE)
 
-# QR group
-
-## QR Logo
+# QR-code datasets
 
 rl_qr_logo2_a <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/export_qr_logo2_alt_20240809_kurz.sav",
                               user_na = TRUE)
@@ -91,26 +90,22 @@ rl_qr_logo2_a <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/export
 rl_qr_logo2_n <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/export_qr_logo2_neu_20240930.sav",
                           user_na = TRUE)
 
-## QR nologo
-
 rl_qr_nologo3_a <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/export_qr_nologo3_alt_20241029.sav",
                             user_na = TRUE)
 
 rl_qr_nologo3_n <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/export_qr_nologo3_neu_20240930.sav",
                             user_na = TRUE)
 
-# Papier
+# Paper-based dataset
 
 rl_papi <- read_sav("./Datenaufbereitung/Input - Daten im Rohformat/GESAMT - eliPfad Stand 02.10.24.SAV", user_na = FALSE) |> 
   zap_labels()
 
-## Merge ####
+## 2. Data Merging (multi-stage) ####
 
-### 1. level join ####
+### 2.1 Merge email datasets ####
 
-## E-Mail
-
-# Bug fixes für das Merging
+# Harmonize variable types before merging
 
 rl_email_a <- rl_email_a |> 
   mutate(
@@ -126,13 +121,14 @@ rl_email_n <- rl_email_n |>
     SDKONFM = as_factor(SDKONFM),
     GKPOT = as_factor(GKPOT))
 
-# Merging
+# Full join retains all observations (no loss of cases)
 
 rl_email <- full_join(rl_email_a, rl_email_n) # join_by())
 
-## QR LOGO
 
-# Bug fixes für das Merging
+### 2.2 Merge QR datasets ####
+
+# Convert inconsistent variable types
 
 rl_qr_logo2_a <- rl_qr_logo2_a |> 
   mutate(
@@ -152,9 +148,7 @@ rl_qr_logo2_n <- rl_qr_logo2_n |>
 # Merging
 rl_qr_logo <- full_join(rl_qr_logo2_a, rl_qr_logo2_n)
 
-## QR NOLOGO
-
-# Bug fixes für das Merging
+## Repeat for "no logo" condition
 
 rl_qr_nologo3_a <- rl_qr_nologo3_a |> 
   mutate(
@@ -181,7 +175,9 @@ rl_qr_nologo3_n <- rl_qr_nologo3_n |>
 rl_qr_nologo <- full_join(rl_qr_nologo3_a, rl_qr_nologo3_n)
 
 
-### Variable zur Identifizierung des Befragungsmodus/der Gruppe erstellen -> "MODUS"
+### 2.3 Create mode variable to identify recruitment strategie -> "MODUS" ####
+
+# Encodes recruitment strategy 
 
 rl_email$MODUS <- as.double(1)
 
@@ -190,9 +186,7 @@ rl_qr_logo$MODUS <- as.double(2)
 rl_qr_nologo$MODUS <- as.double(3)
 
 
-### 2. level join ####
-
-# Bug fixes für das Merging
+### 2.4 Combine QR datasets####
 
 rl_qr_logo <- rl_qr_logo |> 
   mutate(
@@ -205,9 +199,7 @@ rl_qr_logo <- rl_qr_logo |>
 # Merging
 rl_qr <- full_join(rl_qr_logo, rl_qr_nologo)
 
-### 3. level join ####
-
-# Bug fixes für das Merging
+### 2.5 Combine online datasets####
 
 rl_qr <- rl_qr |> 
   mutate(
@@ -219,23 +211,20 @@ rl_qr <- rl_qr |>
 rl_online <- full_join(rl_qr, rl_email)
 
 
-## Create of a unique Case-ID - wo?
+### 2.6. Create unique case identifier ####
 
 rl_online$case <- 1:nrow(rl_online)
 
 rl_papi$case <- (nrow(rl_online)+1):(nrow(rl_online)+nrow(rl_papi))
 
 
-### 4. join level -> full dataset ####
+### 2.7. Harmonization and recoding - full data set ####
 
-
-
-# vorbereitung für das Merging
-# Online Datensatz
+# Preparation for merging
 
 rl_online <- rl_online |> 
   mutate(
-    AUSKW_8 = case_when(AUSKW_other == 0 ~ 0, ###hier mehrfachauswahl berücksichtigen
+    AUSKW_8 = case_when(AUSKW_other == 0 ~ 0, # hier Mehrfachauswahl berücksichtigen
                         AUSKW_other == "" ~ NA,
                         !is.na(AUSKW_other) & AUSKW_other != "" ~ 1,  # Wenn Text vorhanden, setze auf 1
                         TRUE ~ NA),
@@ -251,7 +240,7 @@ rl_online <- rl_online |>
                        BPMEET == "" ~ NA),
     BPMEET = as_factor(BPMEET),
     BPMEET_T = ifelse(BPMEET_other == "", NA, BPMEET_other),
-    FMAUFG_10 = case_when(FMAUFG_other == 0 ~ 0, ### hier Mehrfachauswahl berücksichtigen
+    FMAUFG_10 = case_when(FMAUFG_other == 0 ~ 0, # hier Mehrfachauswahl berücksichtigen
                          FMAUFG_other == "" ~ NA,
                          !is.na(FMAUFG_other) & FMAUFG_other != "" ~ 1,  # Wenn Text vorhanden, setze auf 1
                          TRUE ~ NA),
@@ -266,7 +255,7 @@ rl_online <- rl_online |>
                        SDFREQ == "" ~ NA),
     SDFREQ_T = ifelse(SDFREQ_other == "", NA, SDFREQ_other), # bei Antwort 6 ohne Text = 0
     across(starts_with("SDSTAT"), ~ ifelse(. == 2, 1, .)), #BUG fix LS: setzt die vorhandenen 2 -> 1 
-    SDSTAT_7 = case_when(SDSTAT_other == 0 ~ 0, ### hier Mehrfachauswahl berücksichtigen
+    SDSTAT_7 = case_when(SDSTAT_other == 0 ~ 0, # hier Mehrfachauswahl berücksichtigen
                          SDSTAT_other == "" ~ NA,
                          !is.na(SDSTAT_other) & SDSTAT_other != "" ~ 1,  # Wenn Text vorhanden, setze auf 1
                          TRUE ~ NA),
@@ -280,7 +269,7 @@ rl_online <- rl_online |>
                         SDKONFM == "" ~ NA),
     SDKONFM_T = ifelse(SDKONFM_other == "", NA, SDKONFM_other),
     across(starts_with("GKINI"), ~ ifelse(. == 2, 1, .)), #BUG fix LS: setzt die vorhandenen 2 -> 1
-    GKINI_5 = case_when(GKINI_other == 0 ~ 0, ### hier Mehrfachauswahl berücksichtigen
+    GKINI_5 = case_when(GKINI_other == 0 ~ 0, # hier Mehrfachauswahl berücksichtigen
                         GKINI_other == "" ~ NA,
                         !is.na(GKINI_other) & GKINI_other != "" ~ 1,  # Wenn Text vorhanden, setze auf 1
                         TRUE ~ NA),
@@ -294,7 +283,7 @@ rl_online <- rl_online |>
                       GKPOT == "" ~ NA),
     GKPOT = as_factor(GKPOT),
     GKPOT_T = ifelse(GKPOT_other == "", NA, GKPOT_other),
-    FAWB_6 =  case_when(FAWB_other == 0 ~ 0, ### hier Mehrfachauswahl berücksichtigen
+    FAWB_6 =  case_when(FAWB_other == 0 ~ 0, # hier Mehrfachauswahl berücksichtigen
                         FAWB_other == "" ~ NA,
                         !is.na(FAWB_other) & FAWB_other != "" ~ 1,  # Wenn Text vorhanden, setze auf 1
                         TRUE ~ NA),
@@ -339,15 +328,15 @@ rl_papi <- rl_papi |>
       FM_INIT == 6 ~ 999
     ))
 
-# Merging
+### 2.8 Merge online + paper datasets ####
 
 merged_data <- full_join(x = rl_papi, y = rl_online)
                          
-# Löschen nicht weiter benötigter Elemente 
+# delete redundant datasets to free up memory.
 rm(rl_email_a, rl_email_n, rl_qr_logo2_a, rl_qr_logo2_n,rl_qr_nologo3_n, rl_qr_nologo3_a, rl_qr_logo, rl_qr_nologo,rl_qr, rl_email)
 
 
-## Tidy ####
+## 3. Data cleaning - tidy data ####
 
 tidy_data <- merged_data |>
 
@@ -371,7 +360,7 @@ tidy_data <- merged_data |>
               "FAWB_other", "LASTQ")
            ) 
          
-## Transform ###################################################################
+## 4. Transform #####
 
 # Bilden der Relational Coordination scores
 
@@ -456,9 +445,9 @@ WUN_SOZ = case_when(
   TRUE ~ NA_real_),
 )
 
-## Label erstellen ######################
+## 5. Labeling ####
 
-# Variable Label
+# Assign variable label
 rl_data <- transformed_data |> 
     
   set_variable_labels(
@@ -594,7 +583,7 @@ rl_data <- transformed_data |>
     BER_score = "Bereitschaft zur Umsetzung von eliPfad"
   ) |> 
 
-# Value Label
+# Assign value label
   add_value_labels(
     MODUS = c("E-Mail" = 1,
               "QR-Code: postalisch mit Logo" = 2,
@@ -989,11 +978,13 @@ rl_data <- transformed_data |>
   ) 
 
 
-## Export selected dataframe  ######################
+## 6. Export  ####
+
+# Select relevant variables for paper "Measuring intersectoral coordination dynamics Psychometric properties of the German Relational Coordination Survey""
 
 rl_data_psych <- rl_data |> 
   select(RC1_COM:RC7_REL, RC_com, RC_rel, RC_score, PERGEN, PERALT, JOBANG, JOBPAT1, PRXREGIO)
 
-# R
+# save data set
 save(rl_data, file = "./processing-and-analysis/analysis-data/rl_data_psych.Rdata")
 

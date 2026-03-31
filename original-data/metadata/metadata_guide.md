@@ -2,10 +2,10 @@
 
 ## 1. Basic Information
 
-Title:
+**Title**:
 Survey of General Practitioners in Germany "Entlassmanagement mitgestalten"
 
-Short Description:
+**Short Description:**
 Nationwide cross-sectional survey of GPs assessing intersectoral coordination of care 
 between GPs and hospital clinicians, GPs perspectives on discharge management and 
 new cross sector interventions.
@@ -16,23 +16,22 @@ This work package was carried out through the collaboration of the following ins
 - University of Cologne, Faculty of Medicine and University Hospital Cologne, Institute of Medical Sociology, Health Services Research and Rehabilitation Science, Chair of Health Services Research
 - Witten/Herdecke University, Faculty of Health, Institute of General Practiceand Primary Care, Chair of General Practice II and Patient- Centredness in Primary Care
 
-Keywords:
+**Keywords:**
 Relational Coordination; Survey; Validation; Primary Care; Hospital Interface; CFA; Psychometrics; Care Transitions
 
-Language: OV German / English Code book for relevant variables available
+**Language:** OV German / English Code book for relevant variables available
 
-Version: v1.0
+**Version:** v1.0
 
-Date of Data Collection: 2024 (Q3–Q4)
+**Date of Data Collection:** 2024 (Q3–Q4)
 
 ---
 
 ## 2. Creators & Contributors
 
-Creators (Authors):
-
 - Kai Keller – ORCID: 0009-0003-3827-1535
 - Nadine Scholten – ORCID: 0000-0002-7793-7745
+- Finn Seliger – ORCID: 0009-0005-5573-5287
 - Achim Mortsiefer – ORCID: 0000-0001-9901-1727
 - Sophie Peter – ORCID: 0000-0003-1014-5142
 - Alexandra Piotrowski – ORCID: 0000-0001-5206-4514
@@ -42,23 +41,27 @@ Creators (Authors):
 ---
 
 ## 3. Studydesign
-Study Type:
+
+**Study Type:**
 Cross-sectional survey
-Study Population:
+
+**Study Population:**
 General Practitioners (GPs) in Germany
-Setting:
+
+**Setting:**
 Primary care
-Sample Size:
+
+**Sample Size:**
 Invited: n = 10,000
 
-*Sampling Method:*
+**Sampling Method:**
 Stratified random sample drawn from the national physician registry (“Bundesarztregister”)
 
 **Randomization Procedure:**  
-  - n = 4,000 GPs randomized into:
+  1. step: n = 4,000 GPs randomized into:
     - Group 1: Postal survey (paper questionnaire enclosed)  
     - Group 2: Postal invitation with online participation option  
-  - n = 6,000 GPs (with available email address) randomized into:
+  2. step: n = 6,000 GPs (with available email address) randomized into:
     - Group 3: Email invitation with online participation option  
   - Oversampling of email group due to expected threefold lower response rate
 
@@ -86,11 +89,11 @@ Stratified random sample drawn from the national physician registry (“Bundesar
 
 ## 4. Data structure & survey instrument
 
-**File format**: original data is available as .sav (Limesurvey export). 
+**File format:** original data is available as .sav (Limesurvey export). 
 
-**Codebook**: Codebook is available in the `analysis-data` folder. 
+**Codebook:** Codebook is available in the `analysis-data` folder. 
 
-**Survey instrument**:
+**Survey instrument:**
 - The original survey instrument is available in the `supplement` folder.
  
 
@@ -98,7 +101,7 @@ Stratified random sample drawn from the national physician registry (“Bundesar
 
 ## 5. Data Processing 
 
-- **Data Cleaning:**  
+**Data Cleaning:**  
   - Harmonization across survey modes  
   - Recoding of variables  
   - Plausibility checks  
@@ -124,10 +127,14 @@ Stratified random sample drawn from the national physician registry (“Bundesar
 ---
 
 ## 7. Access & Reuse
-- **License**: (z. B. CC BY 4.0)  
-- **Zugriffsbedingungen**: avaiablble upon reasonable request - contact: kai.keller@ukbonn.de
-- DOI:  
-- Citation:
+
+**License**:  
+
+**Zugriffsbedingungen**: available upon reasonable request - contact: kai.keller@ukbonn.de
+
+**DOI:** 
+
+**Citation:**
 
 **Related Publications:**  
 
