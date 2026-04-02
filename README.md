@@ -67,7 +67,7 @@ To restore the environment:
 1.  Clone the repository or download it as a ZIP file
 2.  Open the \`eliPfad-data-publications.Rpoject in R / RStudio
 3.  Restore the reproducible environment using renv::restore()
-4.  Navigate to: `**processing-and-analysis/command-files/`\*\*
+4.  Navigate to: `processing-and-analysis/command-files/`\\
 5.  Run the analysis script: `Relational_Coordination_analysis.R`
 
 -&gt; The script: - loads the cleaned dataset from analysis-data/ -
