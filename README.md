@@ -1,8 +1,6 @@
 ## Overview
 
-![GitHub Release](https://img.shields.io/github/v/release/KaiKeller/Relational-Coordination-psychometrics?include_prereleases)
-
-[![DOI](https://zenodo.org/badge/1189601909.svg)](https://doi.org/10.5281/zenodo.19392497)
+![GitHub Release](https://img.shields.io/github/v/release/KaiKeller/Relational-Coordination-psychometrics?include_prereleases)    [![DOI](https://zenodo.org/badge/1189601909.svg)](https://doi.org/10.5281/zenodo.19392497)
 
 Shield: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
@@ -14,6 +12,8 @@ This work is licensed under a
 [cc-by-nc]: https://creativecommons.org/licenses/by-nc/4.0/
 [cc-by-nc-image]: https://licensebuttons.net/l/by-nc/4.0/88x31.png
 [cc-by-nc-shield]: https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg
+
+------------------------------------------------------------------------
 
 This repository provides data documentation and analysis code for the
 manuscript:
